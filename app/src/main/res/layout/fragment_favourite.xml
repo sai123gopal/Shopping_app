@@ -6,15 +6,16 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.FavouriteFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Favourite" />
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/favourites_recycler"
+           tools:listitem="@layout/favorite_item"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

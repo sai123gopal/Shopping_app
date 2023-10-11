@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "items")
-data class Items(
+data class Item(
     @PrimaryKey(false)
     @ColumnInfo(name = "id")
     var id:Int,
@@ -15,6 +15,9 @@ data class Items(
 
     @ColumnInfo(name = "name")
     var name: String,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false,
 
     @ColumnInfo(name = "icon")
     var icon:String,

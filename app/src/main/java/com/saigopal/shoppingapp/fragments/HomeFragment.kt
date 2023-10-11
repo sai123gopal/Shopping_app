@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
-    private var categoriesList : List<Categories> = ArrayList()
+    private var categoriesList : MutableList<Categories> = mutableListOf()
     private lateinit var categoriesAdapter:HomeRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,15 +33,15 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(container!!.context),R.layout.fragment_home,container,false)
         binding.lifecycleOwner = this
 
+        categoriesAdapter = HomeRecyclerAdapter(categoriesList,homeViewModel)
+
+        binding.categoriesRecycler.layoutManager = LinearLayoutManager(context)
+        binding.categoriesRecycler.adapter = categoriesAdapter
+
 
         lifecycleScope.launch {
             homeViewModel.getAllCategoriesList()
         }
-
-        categoriesAdapter = HomeRecyclerAdapter(categoriesList)
-
-        binding.categoriesRecycler.layoutManager = LinearLayoutManager(context)
-        binding.categoriesRecycler.adapter = categoriesAdapter
 
 
        observeLiveData()
@@ -51,13 +51,13 @@ class HomeFragment : Fragment() {
 
     private fun observeLiveData(){
 
-        homeViewModel.mutableLiveDataCategoriesList.observe(viewLifecycleOwner) {
+        homeViewModel.mutableCategoryData.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()){
-                categoriesList = it
+                categoriesList.clear()
+                categoriesList.addAll(it)
                 categoriesAdapter.notifyDataSetChanged()
             }
         }
-
 
     }
 

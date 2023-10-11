@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.saigopal.shoppingapp.models.Item" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="170dp"
+        android:layout_margin="10dp"
+        android:layout_height="170dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/favourite_image"
+                android:layout_alignParentEnd="true"
+                android:src="@{item.favorite? @drawable/baseline_favorite_24 : @drawable/baseline_favorite_border_24}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="100dp"
+                app:loadImage="@{item.icon}"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:layout_gravity="start"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="@{item.name}"
+                        tools:text="Food" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(item.price)}"
+                        tools:text="Price" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_add_24"
+                    android:layout_width="0dp"
+                    android:id="@+id/add_to_cart"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

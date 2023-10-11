@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.saigopal.shoppingapp.daos.ShoppingDao
+import com.saigopal.shoppingapp.models.CartItem
 import com.saigopal.shoppingapp.models.Categories
-import com.saigopal.shoppingapp.models.Items
+import com.saigopal.shoppingapp.models.Item
 
-@Database(entities = [Categories::class, Items::class], version = 1, exportSchema = false)
+@Database(entities = [Categories::class, Item::class,CartItem::class], version = 1, exportSchema = false)
 abstract class ShoppingDatabase :RoomDatabase(){
 
     abstract fun shoppingDao() :ShoppingDao
