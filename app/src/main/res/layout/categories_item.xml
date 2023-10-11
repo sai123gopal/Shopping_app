@@ -10,19 +10,23 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="20dp"
+        android:paddingVertical="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:text="@{category.name}"
             tools:text="Food"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/items_recycler"
+            tools:listitem="@layout/product_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>

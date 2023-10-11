@@ -1,5 +1,6 @@
 package com.saigopal.shoppingapp.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,11 +22,14 @@ interface ShoppingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCartItem(items: CartItem)
 
-    @Query("SELECT * FROM categories")
-    suspend fun getCategories():List<Categories>
+    @Query("SELECT * FROM categories WHERE (:categoryIds IS NULL OR id IN (:categoryIds))")
+    suspend fun getCategories(categoryIds: List<Int>?):List<Categories>
 
     @Query("SELECT * FROM cart ORDER BY createdAt desc")
     suspend fun getCartItems():List<CartItem>
+
+    @Query("SELECT * FROM cart")
+    fun getCartItemsLiveData(): LiveData<List<CartItem>>
 
     @Query("SELECT * FROM items WHERE categoryId = :categoryId")
     suspend fun getItemsByCategory(categoryId: Int): List<Item>

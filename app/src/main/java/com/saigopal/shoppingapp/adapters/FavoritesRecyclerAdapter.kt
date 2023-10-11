@@ -46,7 +46,7 @@ class FavoritesRecyclerAdapter(
             viewModel.viewModelScope.launch {
                 viewModel.addToCart(itemList[position])
             }
-            Toast.makeText(holder.binding.root.context,"Item added to cart",Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.binding.root.context,"Added to cart",Toast.LENGTH_SHORT).show()
         }
 
     }

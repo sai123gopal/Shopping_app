@@ -1,20 +1,45 @@
 package com.saigopal.shoppingapp
 
+import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.PopupWindow
+import android.widget.TextView
+import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.saigopal.shoppingapp.activites.CartActivity
+import com.saigopal.shoppingapp.activites.FavoriteItemsActivity
+import com.saigopal.shoppingapp.adapters.HomeRecyclerAdapter
 import com.saigopal.shoppingapp.databinding.ActivityMainBinding
-import com.saigopal.shoppingapp.fragments.CartFragment
-import com.saigopal.shoppingapp.fragments.FavouriteFragment
-import com.saigopal.shoppingapp.fragments.HomeFragment
+import com.saigopal.shoppingapp.models.Categories
 import com.saigopal.shoppingapp.viewModels.MainViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private var categoriesList : MutableList<Categories> = mutableListOf()
+    private lateinit var categoriesAdapter:HomeRecyclerAdapter
+    private var filterPopup: PopupWindow? = null
+    private var textView:TextView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,38 +48,63 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        val homeFragment = HomeFragment()
-        val cartFragment = CartFragment()
-        val favouriteFragment = FavouriteFragment()
+        categoriesAdapter = HomeRecyclerAdapter(categoriesList,mainViewModel)
 
-        setFragment(homeFragment)
+        binding.categoriesRecycler.layoutManager = LinearLayoutManager(this)
+        binding.categoriesRecycler.adapter = categoriesAdapter
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> {
-                    setFragment(homeFragment)
+
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.favourite->{
+                    startActivity(Intent(this,FavoriteItemsActivity::class.java))
                     true
                 }
                 R.id.cart->{
-                    setFragment(cartFragment)
+                    startActivity(Intent(this,CartActivity::class.java))
                     true
                 }
-                R.id.favourite->{
-                    setFragment(favouriteFragment)
-                    true
-                }
-
                 else -> {
                     false
                 }
             }
         }
+
+        val menuItem = binding.toolbar.menu.findItem(R.id.cart)
+        val actionView = menuItem.actionView
+
+        textView = actionView!!.findViewById(R.id.cart_count)
+
+        actionView.setOnClickListener {
+            startActivity(Intent(this,CartActivity::class.java))
+        }
+
+
+        observeLiveData()
     }
 
-    private fun setFragment(fragment: Fragment){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding.frameLayout.id,fragment)
-            .commit()
+
+    private fun observeLiveData(){
+
+        mainViewModel.mutableCategoryData.observe(this) {
+            if (!it.isNullOrEmpty()){
+                categoriesList.clear()
+                categoriesList.addAll(it)
+                categoriesAdapter.notifyDataSetChanged()
+            }
+        }
+        mainViewModel.cartItems.observe(this){
+            if (textView != null){
+                if (it.isNullOrEmpty()){
+                    textView!!.text = "0"
+                }else{
+                    textView!!.text = it.size.toString()
+                }
+            }
+        }
     }
+
+
+
 }

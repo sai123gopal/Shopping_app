@@ -12,7 +12,7 @@ data class Categories(
     var id: Int,
 
     @ColumnInfo(name = "name")
-    var name: String,
+    var name: String
 ) {
     @Ignore
     var items: List<Item> = listOf()

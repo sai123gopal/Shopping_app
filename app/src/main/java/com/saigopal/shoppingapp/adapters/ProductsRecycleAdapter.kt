@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saigopal.shoppingapp.R
 import com.saigopal.shoppingapp.databinding.ProductItemBinding
 import com.saigopal.shoppingapp.models.Item
-import com.saigopal.shoppingapp.viewModels.HomeViewModel
+import com.saigopal.shoppingapp.viewModels.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ProductsRecycleAdapter(
     private val itemList: List<Item>,
-    private var viewModel: HomeViewModel) : RecyclerView.Adapter<ProductsRecycleAdapter.ViewHolder>() {
+    private var viewModel: MainViewModel) : RecyclerView.Adapter<ProductsRecycleAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: ProductItemBinding) : RecyclerView.ViewHolder(itemView.root) {
         var productItemBinding:ProductItemBinding=itemView
@@ -43,7 +43,7 @@ class ProductsRecycleAdapter(
             viewModel.viewModelScope.launch {
                 viewModel.addToCart(itemList[position])
             }
-            Toast.makeText(holder.productItemBinding.root.context,"Item added to cart", Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.productItemBinding.root.context,"Added to cart", Toast.LENGTH_SHORT).show()
         }
 
     }

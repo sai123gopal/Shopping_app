@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saigopal.shoppingapp.R
 import com.saigopal.shoppingapp.databinding.CategoriesItemBinding
 import com.saigopal.shoppingapp.models.Categories
-import com.saigopal.shoppingapp.viewModels.HomeViewModel
+import com.saigopal.shoppingapp.viewModels.MainViewModel
 
 class HomeRecyclerAdapter(
     private var list: List<Categories>,
-    private var viewModel: HomeViewModel) :
+    private var viewModel: MainViewModel) :
     RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
 
 
