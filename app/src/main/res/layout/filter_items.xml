@@ -16,6 +16,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Food"
+            android:textColor="@color/brown_dark"
             android:text="@{category.name}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

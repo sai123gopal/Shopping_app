@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.card.MaterialCardView>
             <TextView
-                android:text="Favorites"
+                android:text="@string/favorites"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="22sp"
@@ -65,7 +65,7 @@
                 />
             <TextView
                 android:layout_marginTop="15sp"
-                android:text="Nothing here"
+                android:text="@string/nothing_here"
                 android:textColor="@color/brown_dark"
                 android:textSize="22sp"
                 android:textStyle="bold"

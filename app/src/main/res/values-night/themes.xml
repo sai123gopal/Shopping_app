@@ -3,6 +3,10 @@
     <style name="Base.Theme.ShoppingApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/brown_dark</item>
+        <item name="colorSecondary">@color/brown_lite</item>
+        <item name="colorAccent">@color/brown_lite</item>
     </style>
 </resources>

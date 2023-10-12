@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.saigopal.shoppingapp.dataBase.ShoppingDatabase
 import com.saigopal.shoppingapp.models.CartData
 import com.saigopal.shoppingapp.models.CartItem
-import com.saigopal.shoppingapp.models.Item
 import com.saigopal.shoppingapp.repo.DatabaseRepo
 import kotlinx.coroutines.launch
 

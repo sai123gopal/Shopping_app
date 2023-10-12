@@ -43,7 +43,7 @@
             app:iconTint="@color/white"
             android:textColor="@color/white"
             android:id="@+id/fab_close"
-            android:text="Close"
+            android:text="@string/close"
             android:paddingHorizontal="8dp"
             android:layout_marginBottom="8dp"
             android:layout_centerHorizontal="true"

@@ -36,7 +36,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:layout_width="wrap_content"
             app:icon="@drawable/outline_grid_view_24"
-            android:text="categories"
+            android:text="@string/categories"
             app:layout_anchor="@id/categories_recycler"
             app:layout_anchorGravity="bottom|center"
             android:backgroundTint="@color/black"

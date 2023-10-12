@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.card.MaterialCardView>
             <TextView
-                android:text="Cart"
+                android:text="@string/cart"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="22sp"
@@ -130,7 +130,7 @@
                     android:textSize="18sp"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Checkout"
+                    android:text="@string/checkout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>
