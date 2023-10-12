@@ -32,13 +32,16 @@ class HomeRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.category = list[position]
-
+        holder.binding.expanded = true
         holder.binding.itemsRecycler.layoutManager = LinearLayoutManager(
             holder.binding.root.context,
             LinearLayoutManager.HORIZONTAL,
             false)
 
         holder.binding.itemsRecycler.adapter = ProductsRecycleAdapter(list[position].items,viewModel)
-
+        holder.binding.expandCardLay.setOnClickListener {
+            holder.binding.expandableLayout.toggle()
+            holder.binding.expanded = holder.binding.expandableLayout.isExpanded
+        }
     }
 }

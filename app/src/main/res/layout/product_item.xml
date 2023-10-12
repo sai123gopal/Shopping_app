@@ -74,6 +74,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:id="@+id/add_to_cart"
+                    app:cardBackgroundColor="@color/brown_lite_transparent"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content">

@@ -32,19 +32,18 @@ class FavoritesRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.item = itemList[position]
+        holder.binding.item = itemList[holder.adapterPosition]
         holder.binding.removeItem.setOnClickListener {
             viewModel.viewModelScope.launch {
-                viewModel.removeItemFromFavorite(itemList[position])
+                viewModel.removeItemFromFavorite(itemList[holder.adapterPosition])
             }
-            itemList.removeAt(position)
-            notifyItemRemoved(position)
+            itemList.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
         }
-
 
         holder.binding.addToCart.setOnClickListener {
             viewModel.viewModelScope.launch {
-                viewModel.addToCart(itemList[position])
+                viewModel.addToCart(itemList[holder.adapterPosition])
             }
             Toast.makeText(holder.binding.root.context,"Added to cart",Toast.LENGTH_SHORT).show()
         }

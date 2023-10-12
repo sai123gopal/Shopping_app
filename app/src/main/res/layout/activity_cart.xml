@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="cost"
-            type="Double" />
+            name="viewModel"
+            type="com.saigopal.shoppingapp.viewModels.CartViewModel" />
+        <variable
+            name="status"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -19,16 +23,19 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/top_bar"
             android:orientation="horizontal"
+            android:background="@drawable/toolbar_gradient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_gravity="start"
+                app:cardBackgroundColor="@color/white"
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/back"
                     android:padding="5dp"
+                    app:cardBackgroundColor="@color/brown_lite_transparent"
                     android:src="@drawable/baseline_arrow_back_ios_new_24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -38,15 +45,16 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="22sp"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:visibility="@{viewModel.mutableLiveCartList.size()>0?View.GONE:View.VISIBLE,default=gone}"
             android:orientation="vertical"
             android:id="@+id/empty_cart"
-            android:visibility="gone"
             android:layout_weight="9"
             android:layout_gravity="center"
             android:gravity="center"
@@ -54,48 +62,80 @@
             android:layout_height="wrap_content">
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 app:lottie_rawRes="@raw/empty_cart"
                 app:lottie_loop="true"
                 app:lottie_autoPlay="true"
             />
             <TextView
                 android:layout_marginTop="15sp"
-                android:text="Cart is empty"
+                android:textColor="@color/brown_dark"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:text="@{status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_recycler"
-            android:layout_weight="9"
+            android:layout_weight="8"
+            android:visibility="@{viewModel.mutableLiveCartList.size()>0?View.VISIBLE:View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_weight="1"
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:visibility="@{viewModel.mutableLiveCartList.size()>0?View.VISIBLE:View.GONE}"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="match_parent"
-            app:cardCornerRadius="24dp"
             android:layout_height="0dp">
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:orientation="vertical"
+                app:cardCornerRadius="24dp"
                 android:gravity="center"
                 android:padding="20dp"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <TextView
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:text="@{cost == null ? `Cart is empty` : `Total cost : ` + cost + `rs`}"
-                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="16dp"
+                    android:paddingHorizontal="8dp"
+                    android:text="@{viewModel.mutableTotalCost == null ? `Cart is empty` : `Total cost : ` + viewModel.mutableTotalCost + `rs`}"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/checkout_card"
+                android:padding="20dp"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/brown_dark"
+                app:cardCornerRadius="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

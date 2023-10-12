@@ -2,8 +2,7 @@ package com.saigopal.shoppingapp.activites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.window.OnBackInvokedDispatcher
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
 class CartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCartBinding
-    private lateinit var viewModel: CartViewModel
+    private lateinit var cartViewModel: CartViewModel
     private val cartItemsList:MutableList<CartData> = mutableListOf()
     private lateinit var cartAdapter: CartItemsRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,19 +25,28 @@ class CartActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_cart)
         binding.lifecycleOwner = this
 
-        viewModel = ViewModelProvider(this)[CartViewModel::class.java]
-
-
+        cartViewModel = ViewModelProvider(this)[CartViewModel::class.java]
+        binding.viewModel = cartViewModel
+        binding.status = "Cart is empty"
         lifecycleScope.launch {
-            viewModel.getCartItems()
+            cartViewModel.getCartItems()
         }
 
-        cartAdapter = CartItemsRecyclerAdapter(cartItemsList,viewModel)
+        cartAdapter = CartItemsRecyclerAdapter(cartItemsList,cartViewModel)
 
         binding.cartRecycler.layoutManager = LinearLayoutManager(this)
         binding.cartRecycler.adapter = cartAdapter
 
         binding.back.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding.checkoutCard.setOnClickListener {
+            lifecycleScope.launch {
+                cartViewModel.clearCart()
+                cartViewModel.getCartItems()
+                Toast.makeText(this@CartActivity,"Order placed",Toast.LENGTH_SHORT).show()
+            }
+            binding.animationView.setAnimation(R.raw.order_placed)
+            binding.status = "Order placed"
+        }
 
         observeLiveData()
 
@@ -46,19 +54,17 @@ class CartActivity : AppCompatActivity() {
 
 
     private fun observeLiveData() {
-        viewModel.mutableLiveCartList.observe(this){
+        cartViewModel.mutableLiveCartList.observe(this){
             if(!it.isNullOrEmpty()){
                 cartItemsList.clear()
                 cartItemsList.addAll(it)
                 cartAdapter.notifyDataSetChanged()
-                binding.emptyCart.visibility = View.GONE
-            }else{
-                binding.emptyCart.visibility = View.VISIBLE
             }
         }
-
-        viewModel.mutableTotalCost.observe(this){
-            binding.cost = it
+        cartViewModel.cartItemsList.observe(this){
+            lifecycleScope.launch {
+                cartViewModel.getCartItems()
+            }
         }
     }
 

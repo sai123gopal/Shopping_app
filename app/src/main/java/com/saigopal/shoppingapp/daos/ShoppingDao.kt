@@ -22,8 +22,8 @@ interface ShoppingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCartItem(items: CartItem)
 
-    @Query("SELECT * FROM categories WHERE (:categoryIds IS NULL OR id IN (:categoryIds))")
-    suspend fun getCategories(categoryIds: List<Int>?):List<Categories>
+    @Query("SELECT * FROM categories")
+    suspend fun getCategories():List<Categories>
 
     @Query("SELECT * FROM cart ORDER BY createdAt desc")
     suspend fun getCartItems():List<CartItem>
@@ -45,9 +45,11 @@ interface ShoppingDao {
     suspend fun updateItem(item:Item)
     @Update
     suspend fun updateCartItem(cartItem: CartItem)
-
     @Delete
     suspend fun deleteCartItem(cartItem: CartItem)
+
+    @Query("DELETE FROM cart")
+    suspend fun deleteAllCartItems()
 
     @Query("SELECT SUM(items.price * cart.quantity) FROM items INNER JOIN cart ON items.id = cart.itemId")
     suspend fun  getTotalCartPrice(): Double

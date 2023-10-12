@@ -1,35 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="category"
             type="com.saigopal.shoppingapp.models.Categories" />
+        <variable
+            name="expanded"
+            type="Boolean" />
     </data>
 
     <LinearLayout
         android:orientation="vertical"
         android:paddingVertical="12dp"
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@{category.name}"
-            tools:text="Food"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/items_recycler"
-            tools:listitem="@layout/product_item"
+        <RelativeLayout
+            android:layout_marginHorizontal="8dp"
+            android:id="@+id/expand_card_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:text="@{category.name}"
+                tools:text="Food"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <ImageView
+                android:src="@{expanded?@drawable/baseline_keyboard_arrow_up_24:@drawable/baseline_keyboard_arrow_down_24,default=@drawable/baseline_keyboard_arrow_up_24}"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="true"
+            app:el_parallax="0.5">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/items_recycler"
+                tools:listitem="@layout/product_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+
 
     </LinearLayout>
 </layout>

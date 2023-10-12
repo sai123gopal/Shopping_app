@@ -71,6 +71,7 @@
                         android:layout_height="wrap_content">
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/decrease"
+                            app:cardBackgroundColor="@color/brown_lite_transparent"
                             style="@style/Widget.Material3.CardView.Filled"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -95,6 +96,7 @@
                             android:id="@+id/increase"
                             style="@style/Widget.Material3.CardView.Filled"
                             android:layout_width="wrap_content"
+                            app:cardBackgroundColor="@color/brown_lite_transparent"
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:src="@drawable/baseline_add_24"

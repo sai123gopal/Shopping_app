@@ -4,6 +4,10 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="fontFamily">@font/poppins</item>
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/brown_dark</item>
+        <item name="colorSecondary">@color/brown_lite</item>
+        <item name="colorAccent">@color/brown_lite</item>
     </style>
 
     <style name="Theme.ShoppingApp" parent="Base.Theme.ShoppingApp" />

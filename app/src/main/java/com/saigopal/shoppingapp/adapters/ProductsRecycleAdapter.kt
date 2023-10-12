@@ -33,15 +33,15 @@ class ProductsRecycleAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.productItemBinding.item = itemList[position]
+        holder.productItemBinding.item = itemList[holder.adapterPosition]
         holder.productItemBinding.favouriteImage.setOnClickListener {
             viewModel.viewModelScope.launch {
-                favorite(itemList[position],position)
+                favorite(itemList[holder.adapterPosition],holder.adapterPosition)
             }
         }
         holder.productItemBinding.addToCart.setOnClickListener {
             viewModel.viewModelScope.launch {
-                viewModel.addToCart(itemList[position])
+                viewModel.addToCart(itemList[holder.adapterPosition])
             }
             Toast.makeText(holder.productItemBinding.root.context,"Added to cart", Toast.LENGTH_SHORT).show()
         }

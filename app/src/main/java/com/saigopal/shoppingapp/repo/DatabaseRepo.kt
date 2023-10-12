@@ -58,6 +58,8 @@ class DatabaseRepo(private val dao: ShoppingDao) {
     suspend fun getUpdatedTotalCost():Double{
         return dao.getTotalCartPrice()
     }
-
+    suspend fun clearCart(){
+        dao.deleteAllCartItems()
+    }
 
 }

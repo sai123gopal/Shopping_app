@@ -28,6 +28,7 @@ import com.saigopal.shoppingapp.activites.FavoriteItemsActivity
 import com.saigopal.shoppingapp.adapters.HomeRecyclerAdapter
 import com.saigopal.shoppingapp.databinding.ActivityMainBinding
 import com.saigopal.shoppingapp.models.Categories
+import com.saigopal.shoppingapp.utils.FilterDialog
 import com.saigopal.shoppingapp.viewModels.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -37,9 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private var categoriesList : MutableList<Categories> = mutableListOf()
     private lateinit var categoriesAdapter:HomeRecyclerAdapter
-    private var filterPopup: PopupWindow? = null
     private var textView:TextView? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +79,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this,CartActivity::class.java))
         }
 
+        binding.fabOpen.setOnClickListener {
+            val filterDialog = FilterDialog()
+            filterDialog.categoriesList = categoriesList
+            filterDialog.show(supportFragmentManager,"filter")
+        }
+
 
         observeLiveData()
     }
 
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch {
+            mainViewModel.getAllCategoriesList()
+        }
+    }
 
     private fun observeLiveData(){
 

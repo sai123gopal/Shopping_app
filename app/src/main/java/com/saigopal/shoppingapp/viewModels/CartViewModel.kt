@@ -2,6 +2,7 @@ package com.saigopal.shoppingapp.viewModels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.saigopal.shoppingapp.dataBase.ShoppingDatabase
@@ -17,12 +18,16 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     private var databaseRepo: DatabaseRepo
     var mutableLiveCartList : MutableLiveData<List<CartData>>
     var mutableTotalCost :MutableLiveData<Double>
+    var cartItemsList:LiveData<List<CartItem>>
+
 
     init {
         shoppingDatabase =  ShoppingDatabase.getInstance(application)
         mutableLiveCartList = MutableLiveData()
         mutableTotalCost = MutableLiveData(0.0)
         databaseRepo = DatabaseRepo(shoppingDatabase.shoppingDao())
+        cartItemsList = MutableLiveData()
+        cartItemsList = shoppingDatabase.shoppingDao().getCartItemsLiveData()
     }
 
     suspend fun getCartItems(){
@@ -38,6 +43,10 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             mutableLiveCartList.value = cartDataList
             updateCost()
         }
+    }
+
+    suspend fun clearCart(){
+        databaseRepo.clearCart()
     }
 
     suspend fun increaseCartItemQuantity(cartItem:CartItem){

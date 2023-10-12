@@ -2,8 +2,6 @@ package com.saigopal.shoppingapp.activites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.window.OnBackInvokedDispatcher
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -27,8 +25,7 @@ class FavoriteItemsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         favouriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
-
-
+        binding.viewModel = favouriteViewModel
         favouriteAdapter = FavoritesRecyclerAdapter(favoriteItemList,favouriteViewModel)
 
 
@@ -53,9 +50,6 @@ class FavoriteItemsActivity : AppCompatActivity() {
                 favoriteItemList.clear()
                 favoriteItemList.addAll(it)
                 favouriteAdapter.notifyDataSetChanged()
-                binding.emptyFav.visibility = View.GONE
-            }else{
-                binding.emptyFav.visibility = View.VISIBLE
             }
         }
     }

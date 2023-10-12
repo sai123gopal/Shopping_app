@@ -21,7 +21,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var shoppingDatabase:ShoppingDatabase
     private var databaseRepo: DatabaseRepo
     var mutableCategoryData : MutableLiveData<List<Categories>>
-    var mutableSelectedCategories : MutableLiveData<List<Int>?>
     var cartItems:LiveData<List<CartItem>>
 
     init {
@@ -30,8 +29,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         shoppingDatabase =  ShoppingDatabase.getInstance(application)
         databaseRepo = DatabaseRepo(shoppingDatabase.shoppingDao())
         mutableCategoryData = MutableLiveData()
-        mutableSelectedCategories = MutableLiveData()
-        mutableSelectedCategories.value = null
         cartItems = MutableLiveData()
 
         viewModelScope.launch {
@@ -75,10 +72,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    private suspend fun getAllCategoriesList(){
+    suspend fun getAllCategoriesList(){
 
         val itemList : MutableList<Categories> = mutableListOf()
-        shoppingDatabase.shoppingDao().getCategories(mutableSelectedCategories.value).forEach{ categories ->
+        shoppingDatabase.shoppingDao().getCategories().forEach{ categories ->
             run {
                 val list = getItemsByCategories(categories.id)
                 val category = Categories(categories.id,categories.name)

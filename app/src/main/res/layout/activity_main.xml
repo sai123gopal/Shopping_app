@@ -28,8 +28,8 @@
             android:id="@+id/categories_recycler"
             tools:listitem="@layout/categories_item"
             android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_height="match_parent"
             >
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -39,6 +39,10 @@
             android:text="categories"
             app:layout_anchor="@id/categories_recycler"
             app:layout_anchorGravity="bottom|center"
+            android:backgroundTint="@color/black"
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/fab_open"
             android:layout_marginBottom="8dp"
             android:layout_centerHorizontal="true"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"

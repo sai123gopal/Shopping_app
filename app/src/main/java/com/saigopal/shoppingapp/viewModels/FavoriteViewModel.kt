@@ -20,7 +20,7 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
     }
 
     suspend fun getFavoriteItems(){
-        mutableLiveItemList.value = shoppingDatabase.shoppingDao().getItemsByFavorite()
+        mutableLiveItemList.postValue(shoppingDatabase.shoppingDao().getItemsByFavorite())
     }
 
     suspend fun removeItemFromFavorite(item:Item){
