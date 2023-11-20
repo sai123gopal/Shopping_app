@@ -21,16 +21,20 @@ This is a shopping application that provides categorized shopping options for us
 
 ## Screenshots
 - **Home Screen**
+
   <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_171021.jpg" width="200">
 
 - **Category List**
+
   <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_190451.jpg" width="200">
 
 - **Favorite Items**
-  <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_171057.jpg" width="200">
+
+   <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_171057.jpg" width="200">
 
 - **Shopping Cart**
-  <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_171133.jpg" width="200">
+
+   <img src="https://raw.githubusercontent.com/sai123gopal/Shopping_app/master/screenshots/Screenshot_20231012_171133.jpg" width="200">
 
 
 ## Technologies Used
