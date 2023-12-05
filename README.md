@@ -1,7 +1,5 @@
 # Shopping Application
 
-[Include a project logo or banner image here if applicable]
-
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
