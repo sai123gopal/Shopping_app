@@ -5,7 +5,6 @@
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
 
 ## Introduction
 This is a shopping application that provides categorized shopping options for users. It allows users to explore products, mark their favorite items, and add items to their shopping cart. The app supports offline mode using a local Room database.
